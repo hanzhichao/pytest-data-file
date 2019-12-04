@@ -38,7 +38,7 @@ setup(
     ],
     entry_points={
         'pytest11': [
-            'pytest-db = pytest_data_file.plugin',
+            'pytest-data-file = pytest_data_file.plugin',
         ]
     }
 )
