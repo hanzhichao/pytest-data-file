@@ -10,42 +10,52 @@ Pytest操作MySQL
 
 使用pip从github安装
 ```
-pip install git+https://github.com/hanzhichao/pytest-db
+pip install git+https://github.com/hanzhichao/pytest-data-file
 ```
 
 2. 使用方法
-在环境变量中添加
+准备数据文件(支持.json/.yaml), 如放到项目data目录下，格式如下：
+```yaml
+# data/test_data.yaml
+test_a:  # must same with test function name
+  user: hanzhichao
+  password: 123456
+  skills: [Python,Java,Go]
+
+test_b:
+  number: 1
 ```
-export DB_URI=mysql://root:password@localhost:3306/test
-```
+  
+  
 或在pytest.ini中配置
 ```
 [pytest]
-db_uri=mysql://root:password@localhost:3306/test
+db_file=data/test_data.yaml
 ```
 或命令行传入
 ```
-$ pytest --db-uri=mysql://root:password@localhost:3306/test
+$ pytest --data-file=data/test_data.yaml
+```
+支持传入项目相对路径和绝对路径，绝对路径必须以'/'开头或包含':'，例如：
+
+```
+$ pytest --data-file=/home/hanzhichao/data/test_data.yaml
+```
+或
+```
+$ pytest --data-file=D:\\data\\test_data.yaml
 ```
 
+3. 使用fixture函数: data和case_data
+```
+def test_a(data):  # 所有数据
+    my_data = data.get('test_a'）
+    print(my_data)
+    
+def test_b(case_data):  # 仅该用例数据
+    print(case_data)    
 
-3. 使用fixture函数: db
 ```
-def test_a(db):
-    print(db.query('select id from user limit 1;')
-```
-使用pytest -s 运行，查看结果
-```
-...
-[{'id': 123321336}]
-...
-```
-> 游标使用pymysql.cursors.DictCursor，结果使用fetchall,返回列表嵌套字典格式的结果
-
-4. db对象支持的方法
-- db.query(sql): 执行查询sql
-- db.change_db(sql): 执行修改sql
-
 
 ---
 

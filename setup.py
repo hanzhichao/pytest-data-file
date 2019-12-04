@@ -25,7 +25,7 @@ setup(
     keywords=[
         'pytest', 'py.test', 'data', 'file', 'yaml'
     ],
-    name='pytest-db',
+    name='pytest-data-file',
     packages=find_packages(include=['pytest_data_file']),
     setup_requires=setup_requirements,
     url='https://github.com/hanzhichao/pytest-data-file',
