@@ -1,12 +1,12 @@
-# pytest-db
+# pytest-data-file
 
-Pytest操作MySQL
+Pytest使用json,yaml等数据文件
 
 ---
 
 ### 如何使用
 
-1. 安装 `pytest-db`
+1. 安装 `pytest-data-file`
 
 使用pip从github安装
 ```
