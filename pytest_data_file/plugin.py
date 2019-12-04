@@ -12,16 +12,14 @@ def pytest_addoption(parser):
 
 @pytest.fixture(scope='session')
 def data(request):
-    basedir = request.config.basedir
+    basedir = request.config.rootdir
     data_file = request.config.getoption('--data-file') or request.config.getini('data_file')
-    if data_file is None:
-        pytest.skip('Not given --data-file or data_file ')
-        return
+    if not data_file:
+        pytest.skip('--data-file or data_file not given')
     if not data_file.startswith('/') or ':' not in data_file:
         data_file = os.path.join(basedir, data_file)
     if not os.path.isfile(data_file):
-        logging.warning('%s not a valid file' % data_file)
-        return
+        pytest.skip('%s not a valid file' % data_file)
     try:
         with open(data_file, encoding='utf-8') as f:
             if data_file.endswith('.json'):
@@ -29,7 +27,7 @@ def data(request):
             elif data_file.endswith('.yaml'):
                 data = yaml.safe_load(f)
             else:
-                raise ValueError('Only support .json and .yaml file')
+                pytest.skip('Only support .json and .yaml file')
     except Exception as ex:
         logging.exception(ex)
         pytest.skip(str(ex))
