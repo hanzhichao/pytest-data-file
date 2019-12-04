@@ -17,7 +17,7 @@ pip install git+https://github.com/hanzhichao/pytest-data-file
 准备数据文件(支持.json/.yaml), 如放到项目data目录下，格式如下：
 ```yaml
 # data/test_data.yaml
-test_a:  # must same with test function name
+test_a:  # must be same with test function name
   user: hanzhichao
   password: 123456
   skills: [Python,Java,Go]
@@ -49,7 +49,7 @@ $ pytest --data-file=D:\\data\\test_data.yaml
 3. 使用fixture函数: data和case_data
 ```
 def test_a(data):  # 所有数据
-    my_data = data.get('test_a'）
+    my_data = data.get('test_a')
     print(my_data)
     
 def test_b(case_data):  # 仅该用例数据

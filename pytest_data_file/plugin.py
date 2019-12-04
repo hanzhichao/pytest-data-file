@@ -38,6 +38,6 @@ def data(request):
 
 
 @pytest.fixture
-def test_data(request, data):
+def case_data(request, data):
     case_name = request.function.__name__
     return data.get(case_name)
