@@ -30,7 +30,7 @@ test_b:
 或在pytest.ini中配置
 ```
 [pytest]
-db_file=data/test_data.yaml
+data_file=data/test_data.yaml
 ```
 或命令行传入
 ```
